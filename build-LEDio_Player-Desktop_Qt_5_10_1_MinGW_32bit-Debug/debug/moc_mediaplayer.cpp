@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MediaPlayer_t {
-    QByteArrayData data[16];
-    char stringdata0[135];
+    QByteArrayData data[17];
+    char stringdata0[140];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -44,15 +44,16 @@ QT_MOC_LITERAL(9, 67, 14), // "SetPosOfScroll"
 QT_MOC_LITERAL(10, 82, 3), // "pos"
 QT_MOC_LITERAL(11, 86, 15), // "GetTimeOfStream"
 QT_MOC_LITERAL(12, 102, 14), // "GetPosOfStream"
-QT_MOC_LITERAL(13, 117, 6), // "getFFT"
-QT_MOC_LITERAL(14, 124, 6), // "float*"
-QT_MOC_LITERAL(15, 131, 3) // "fft"
+QT_MOC_LITERAL(13, 117, 4), // "free"
+QT_MOC_LITERAL(14, 122, 6), // "getFFT"
+QT_MOC_LITERAL(15, 129, 6), // "float*"
+QT_MOC_LITERAL(16, 136, 3) // "fft"
 
     },
     "MediaPlayer\0play\0\0filename\0vol\0pause\0"
     "resume\0stop\0SetVolumeToStream\0"
     "SetPosOfScroll\0pos\0GetTimeOfStream\0"
-    "GetPosOfStream\0getFFT\0float*\0fft"
+    "GetPosOfStream\0free\0getFFT\0float*\0fft"
 };
 #undef QT_MOC_LITERAL
 
@@ -62,7 +63,7 @@ static const uint qt_meta_data_MediaPlayer[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -70,15 +71,16 @@ static const uint qt_meta_data_MediaPlayer[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    2,   59,    2, 0x0a /* Public */,
-       5,    0,   64,    2, 0x0a /* Public */,
-       6,    0,   65,    2, 0x0a /* Public */,
-       7,    0,   66,    2, 0x0a /* Public */,
-       8,    1,   67,    2, 0x0a /* Public */,
-       9,    1,   70,    2, 0x0a /* Public */,
-      11,    0,   73,    2, 0x0a /* Public */,
-      12,    0,   74,    2, 0x0a /* Public */,
-      13,    1,   75,    2, 0x0a /* Public */,
+       1,    2,   64,    2, 0x0a /* Public */,
+       5,    0,   69,    2, 0x0a /* Public */,
+       6,    0,   70,    2, 0x0a /* Public */,
+       7,    0,   71,    2, 0x0a /* Public */,
+       8,    1,   72,    2, 0x0a /* Public */,
+       9,    1,   75,    2, 0x0a /* Public */,
+      11,    0,   78,    2, 0x0a /* Public */,
+      12,    0,   79,    2, 0x0a /* Public */,
+      13,    0,   80,    2, 0x0a /* Public */,
+      14,    1,   81,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::QString, QMetaType::Int,    3,    4,
@@ -89,7 +91,8 @@ static const uint qt_meta_data_MediaPlayer[] = {
     QMetaType::Void, QMetaType::Int,   10,
     QMetaType::Int,
     QMetaType::Int,
-    0x80000000 | 14, 0x80000000 | 14,   15,
+    QMetaType::Void,
+    0x80000000 | 15, 0x80000000 | 15,   16,
 
        0        // eod
 };
@@ -110,7 +113,8 @@ void MediaPlayer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = std::move(_r); }  break;
         case 7: { int _r = _t->GetPosOfStream();
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = std::move(_r); }  break;
-        case 8: { float* _r = _t->getFFT((*reinterpret_cast< float*(*)>(_a[1])));
+        case 8: _t->free(); break;
+        case 9: { float* _r = _t->getFFT((*reinterpret_cast< float*(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< float**>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
@@ -142,13 +146,13 @@ int MediaPlayer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 10)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 9;
+        _id -= 10;
     }
     return _id;
 }

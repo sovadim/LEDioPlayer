@@ -33,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Audio player itself
     m_player = new MediaPlayer(this);
+    ui->label_Audio->setText("m_player inited");
 
     // this variable contain index of audio selected on playlist
     selectedAudioIndex = 0;
@@ -329,4 +330,9 @@ void MainWindow::toZeroValues()
     ui->slider_25->setValue(0);
     ui->slider_26->setValue(0);
     ui->slider_27->setValue(0);
+}
+
+void MainWindow::on_MainWindow_destroyed()
+{
+    m_player->free();
 }

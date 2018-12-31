@@ -64,6 +64,8 @@ private slots:
 
     void drawSpectrum();
 
+    void on_MainWindow_destroyed();
+
 private:
     Ui::MainWindow *ui;
     QStandardItemModel *playListModel;

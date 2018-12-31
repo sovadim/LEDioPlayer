@@ -4,6 +4,7 @@
 MediaPlayer::MediaPlayer(QObject *parent) : QObject(parent)
 {
     qDebug() << "MediaPlayer constructor";
+    InitBass(HZ);
 }
 
 bool MediaPlayer::InitBass(int hz){
@@ -11,7 +12,12 @@ bool MediaPlayer::InitBass(int hz){
     if (!InitDefaultDevice){
         InitDefaultDevice = BASS_Init(-1, hz, BASS_DEVICE_DEFAULT, NULL, NULL);
         qDebug() << "active: " + InitDefaultDevice;
+    } else {
+        BASS_Free();
+        InitDefaultDevice = BASS_Init(-1, hz, BASS_DEVICE_DEFAULT, NULL, NULL);
+        qDebug() << "active: " + InitDefaultDevice;
     }
+
     return InitDefaultDevice;
 
 }
@@ -50,7 +56,6 @@ void MediaPlayer::resume(){
 
     if (!BASS_ChannelPlay(Stream, false))
         qDebug() << "Error resuming";
-
 }
 
 void MediaPlayer::SetVolumeToStream(int vol){
@@ -80,4 +85,8 @@ void MediaPlayer::SetPosOfScroll(int pos){
 float* MediaPlayer::getFFT(float *fft){
     BASS_ChannelGetData(Stream, fft, BASS_DATA_FFT1024);
     return fft;
+}
+
+void MediaPlayer::free(){
+    BASS_Free();
 }
