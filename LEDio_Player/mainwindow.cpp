@@ -145,8 +145,6 @@ void MainWindow::drawSpectrum(){
 
     m_player->getFFT(fft);
 
-    //int count = 8;
-
     float r = 0;
     float g = 0;
     float b = 0;
@@ -206,7 +204,6 @@ void MainWindow::drawSpectrum(){
     ui->slider_26->setValue(int(fft[26]*2500)/1);
     ui->slider_27->setValue(int(fft[27]*2500)/1);
 
-    //ui->timeController->setValue(int(((float(m_player->GetPosOfStream() / m_player->GetTimeOfStream()) *1000))));
     ui->timeController->setValue(int((( float(m_player->GetPosOfStream()) / m_player->GetTimeOfStream()) *1000)));
 
     if (m_player->GetPosOfStream() >= m_player->GetTimeOfStream()){
