@@ -79,7 +79,7 @@ int MediaPlayer::GetPosOfStream(){
 }
 
 void MediaPlayer::SetPosOfScroll(int pos){
-    BASS_ChannelSetPosition(Stream, (double)pos, BASS_POS_BYTE);
+    BASS_ChannelSetPosition(Stream, double(pos), BASS_POS_BYTE);
 }
 
 float* MediaPlayer::getFFT(float *fft){
@@ -89,4 +89,8 @@ float* MediaPlayer::getFFT(float *fft){
 
 void MediaPlayer::free(){
     BASS_Free();
+}
+
+MediaPlayer::~MediaPlayer(){
+    free();
 }

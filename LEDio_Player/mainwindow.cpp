@@ -207,13 +207,9 @@ void MainWindow::drawSpectrum(){
 
     ui->timeController->setValue(int((( float(m_player->GetPosOfStream()) / m_player->GetTimeOfStream()) *1000)));
 
-    if (m_player->GetPosOfStream() >= m_player->GetTimeOfStream()){
-        if (currentAudioIndex == trackList->size() - 1){
-            on_btnStop_clicked();
-        } else {
-            on_btnNext_clicked();
-        }
-    }
+    if (m_player->GetPosOfStream() >= m_player->GetTimeOfStream())
+        on_btnNext_clicked();
+
 }
 
 void MainWindow::on_btnAdd_clicked()
@@ -287,11 +283,13 @@ void MainWindow::on_btnPrevious_clicked()
 
 void MainWindow::on_btnNext_clicked()
 {
+    MainWindow::on_btnStop_clicked();
     if(selectedAudioIndex!=trackList->length() - 1){
         selectedAudioIndex++;
-        MainWindow::on_btnStop_clicked();
-        MainWindow::on_btnPlay_clicked();
+    } else {
+        selectedAudioIndex = 0;
     }
+    MainWindow::on_btnPlay_clicked();
 }
 
 void MainWindow::on_volController_valueChanged(int value)

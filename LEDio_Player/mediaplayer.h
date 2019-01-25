@@ -11,6 +11,8 @@ class MediaPlayer : public QObject
 public:
     explicit MediaPlayer(QObject *parent = nullptr);
 
+    ~MediaPlayer();
+
     bool InitDefaultDevice;
     int Stream;
 

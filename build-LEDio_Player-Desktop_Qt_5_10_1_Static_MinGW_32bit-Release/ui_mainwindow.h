@@ -123,6 +123,7 @@ public:
         playlist = new QTableView(centralWidget);
         playlist->setObjectName(QStringLiteral("playlist"));
         playlist->setMinimumSize(QSize(200, 0));
+        playlist->setMaximumSize(QSize(10000, 16777215));
 
         verticalLayout->addWidget(playlist);
 

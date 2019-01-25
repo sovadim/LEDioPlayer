@@ -2,6 +2,7 @@
 #define TRANSMITTER_H
 
 #include <QSerialPort>
+#include <QSerialPortInfo>
 
 class Transmitter : public QObject
 {
@@ -17,6 +18,7 @@ public:
 private:
 
     QSerialPort *m_pSerialPort;
+    QSerialPortInfo *info;
     bool m_isConnected;
 
 };
