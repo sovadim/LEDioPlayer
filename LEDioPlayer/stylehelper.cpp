@@ -11,11 +11,12 @@ hover:      #E0E0E0
 pressed:    #E0E0E0
 */
 
-QString StyleHelper::getWindowStyleSheet(){
+QString StyleHelper::getWindowStyleSheet()
+{
     return "QWidget { "
-           "background-color: rgb(236,239,241, 90); "
+           "background-color: rgb(236,239,241, 90);"
             "background-position: center;"
-            "border: 1px solid black; "
+            "border: 1px solid black;"
             "}"
             "#centralWidget { "
             "border-image: url(:/images_folder/background.jpg) 0 0 0 0 stretch stretch;"
@@ -94,40 +95,35 @@ QString StyleHelper::getSliderStyleSheet()
 
 QString StyleHelper::getCloseStyleSheet()
 {
-    return "QToolButton { "
-            "image: url(:/images_folder/filename.png);"
-            "background-color: #292929;"
-            "icon-size: 12px;"
-            "padding-left: 10px;"
-            "padding-right: 10px;"
-            "padding-top: 5px;"
-            "padding-bottom: 5px;"
-            "border: 1px solid #292929;"
-            "}"
-            "QToolButton:hover {"
-            "image: url(:/images_folder/filename.png);"
-            "}"
-            "QToolButton:pressed {"
-            "image: url(:/images_folder/filename.png);"
-            "background-color: #de8e37;"
-            "}";
+    return "QToolButton {"
+           "image: url(:/images_folder/btnClose_original.png);"
+           "icon-size: 32px;"
+           "padding: 6px;"
+           "border: none;"
+           "background-color: rgb(0,0,0, 0);"
+           "}"
+           "QToolButton:hover {"
+           "image: url(:/images_folder/btnClose_hover.png);"
+           "}"
+           "QToolButton:pressed {"
+           "image: url(:/images_folder/btnClose_pressed.png);"
+           "}";
 }
 
 QString StyleHelper::getMaximizeStyleSheet(){
     return "QToolButton {"
-            "image: url(:/images_folder/filename.png);"
-            "background-color: #292929;"
-            "icon-size: 12px;"
-            "padding-left: 10px;"
-            "padding-right: 10px;"
-            "padding-top: 5px;"
-            "padding-bottom: 5p;"
-            "border: 1px solid #292929;"
-            "}"
-            "QToolButton:hover {"
-            "image: url(:/images_folder/filename.png);"
-            "background-color: #de8e37;"
-            "}";
+           "image: url(:/images_folder/btnClose_original.png);"
+           "icon-size: 32px;"
+           "padding: 6px;"
+           "border: none;"
+           "background-color: rgb(0,0,0, 0);"
+           "}"
+           "QToolButton:hover {"
+           "image: url(:/images_folder/btnClose_hover.png);"
+           "}"
+           "QToolButton:pressed {"
+           "image: url(:/images_folder/btnClose_pressed.png);"
+           "}";
 }
 
 QString StyleHelper::getRestoreStyleSheet(){
@@ -152,23 +148,18 @@ QString StyleHelper::getRestoreStyleSheet(){
 
 QString StyleHelper::getMinimizeStyleSheet(){
     return "QToolButton {"
-            "image: url(:/images_folder/filename.png);"
-            "background-color: #292929;"
-            "icon-size: 12px;"
-            "padding-left: 10px;"
-            "padding-right: 10px;"
-            "padding-top: 5px;"
-            "padding-bottom: 5p;"
-            "border: 1px solid #292929;"
-            "}"
-            "QToolButton:hover {"
-            "image: url(:/images_folder/filename.png);"
-            "background-color: #de8e37;"
-            "}"
-            "QToolButton:pressed {"
-            "image: url(:/images_folder/filename.png);"
-            "background-color: #de8e37;"
-            "}";
+           "image: url(:/images_folder/btnClose_original.png);"
+           "icon-size: 32px;"
+           "padding: 6px;"
+           "border: none;"
+           "background-color: rgb(0,0,0, 0);"
+           "}"
+           "QToolButton:hover {"
+           "image: url(:/images_folder/btnClose_hover.png);"
+           "}"
+           "QToolButton:pressed {"
+           "image: url(:/images_folder/btnClose_pressed.png);"
+           "}";
 }
 
 QString StyleHelper::getNextStyleSheet(){

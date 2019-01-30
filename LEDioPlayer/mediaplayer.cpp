@@ -7,7 +7,7 @@ MediaPlayer::MediaPlayer(QObject *parent) : QObject(parent)
     InitBass(HZ);
 }
 
-bool MediaPlayer::InitBass(int hz){
+bool MediaPlayer::InitBass(int hz) {
 
     if (!InitDefaultDevice){
         InitDefaultDevice = BASS_Init(-1, hz, BASS_DEVICE_DEFAULT, NULL, NULL);
@@ -22,13 +22,13 @@ bool MediaPlayer::InitBass(int hz){
 
 }
 
-void MediaPlayer::play(QString filename, int vol){
+void MediaPlayer::play(QString filename, int vol) {
 
     qDebug() << "play";
 
     stop();
 
-    if (InitBass(HZ)){
+    if (InitBass(HZ)) {
         Stream = BASS_StreamCreateFile(false, filename.toLatin1().data(), 0, 0, 0);
         if (Stream != 0){
             Volume = vol;
@@ -38,7 +38,7 @@ void MediaPlayer::play(QString filename, int vol){
     }
 }
 
-void MediaPlayer::stop(){
+void MediaPlayer::stop() {
     qDebug() << "stop";
 
     BASS_ChannelStop(Stream);
@@ -51,19 +51,19 @@ void MediaPlayer::pause(){
     BASS_ChannelPause(Stream);
 }
 
-void MediaPlayer::resume(){
+void MediaPlayer::resume() {
     qDebug() << "resume";
 
     if (!BASS_ChannelPlay(Stream, false))
         qDebug() << "Error resuming";
 }
 
-void MediaPlayer::SetVolumeToStream(int vol){
+void MediaPlayer::SetVolumeToStream(int vol) {
     Volume = vol;
     BASS_ChannelSetAttribute(Stream, BASS_ATTRIB_VOL, Volume/100.0);
 }
 
-int MediaPlayer::GetTimeOfStream(){
+int MediaPlayer::GetTimeOfStream() {
     long TimeBytes = BASS_ChannelGetLength(Stream, BASS_POS_BYTE); // Check out
     double Time = BASS_ChannelBytes2Seconds(Stream, TimeBytes);
 
@@ -71,14 +71,19 @@ int MediaPlayer::GetTimeOfStream(){
 }
 
 // getting current position in seconds
-int MediaPlayer::GetPosOfStream(){
+int MediaPlayer::GetPosOfStream() {
     long pos = BASS_ChannelGetPosition(Stream, BASS_POS_BYTE);
     int posSec = (int)BASS_ChannelBytes2Seconds(Stream, pos);
 
     return posSec;
 }
 
-void MediaPlayer::SetPosOfScroll(int pos){
+float MediaPlayer::GetLevel() {
+    long level = BASS_ChannelGetLevel(Stream);
+    return (float)level/4294967295;
+}
+
+void MediaPlayer::SetPosOfScroll(int pos) {
     BASS_ChannelSetPosition(Stream, double(pos), BASS_POS_BYTE);
 }
 
@@ -87,10 +92,10 @@ float* MediaPlayer::getFFT(float *fft){
     return fft;
 }
 
-void MediaPlayer::free(){
+void MediaPlayer::free() {
     BASS_Free();
 }
 
-MediaPlayer::~MediaPlayer(){
+MediaPlayer::~MediaPlayer() {
     free();
 }

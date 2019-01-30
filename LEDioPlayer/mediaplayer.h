@@ -37,6 +37,8 @@ public slots:
     int GetTimeOfStream();
     int GetPosOfStream();
 
+    float GetLevel();
+
     void free();
 
     float* getFFT(float *fft);

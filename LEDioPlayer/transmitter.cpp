@@ -29,6 +29,7 @@ void Transmitter::connect()
     info = new QSerialPortInfo();
 
     if(info->availablePorts().length()==0){
+        m_isConnected = false;
         return;
     }
     m_pSerialPort->setPort(info->availablePorts()[0]);
@@ -48,20 +49,6 @@ void Transmitter::connect()
 
 void Transmitter::writeRGB(int r, int g, int b)
 {
-    if (!isConnected()){
-        connect();
-        qDebug() << "retry";
-    }
-
-    //m_pSerialPort->setPort(info->availablePorts()[0]);
-
-    /*if(m_pSerialPort->open(QIODevice::ReadWrite)){
-        qDebug() << "Retry";
-        info = new QSerialPortInfo();
-        m_pSerialPort->setPort(info->availablePorts()[0]);
-        qDebug() << QString::number(info->availablePorts().length());
-    }*/
-
     QByteArray sentData;
     sentData.resize(4);
 

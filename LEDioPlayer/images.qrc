@@ -16,5 +16,8 @@
         <file>images_folder/btnStop_hover.png</file>
         <file>images_folder/btnStop_original.png</file>
         <file>images_folder/btnStop_pressed.png</file>
+        <file>images_folder/btnClose_hover.png</file>
+        <file>images_folder/btnClose_original.png</file>
+        <file>images_folder/btnClose_pressed.png</file>
     </qresource>
 </RCC>
