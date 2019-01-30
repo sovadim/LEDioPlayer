@@ -5,7 +5,6 @@
 #include <QDir>
 #include <QPushButton>
 #include <QGraphicsDropShadowEffect>
-
 #include "stylehelper.h"
 
 MainWindow::MainWindow(QWidget *parent) :

@@ -35,7 +35,7 @@ HEADERS += \
         mainwindow.h \
     mediaplayer.h \
     stylehelper.h \
-    transmitter.h
+    transmitter.h \
 
 FORMS += \
     mainwindow.ui
