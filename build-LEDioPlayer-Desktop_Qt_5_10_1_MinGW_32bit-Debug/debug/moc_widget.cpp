@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Widget_t {
-    QByteArrayData data[14];
-    char stringdata0[236];
+    QByteArrayData data[15];
+    char stringdata0[260];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -44,7 +44,8 @@ QT_MOC_LITERAL(9, 150, 18), // "on_btnNext_clicked"
 QT_MOC_LITERAL(10, 169, 29), // "on_volController_valueChanged"
 QT_MOC_LITERAL(11, 199, 5), // "value"
 QT_MOC_LITERAL(12, 205, 12), // "drawSpectrum"
-QT_MOC_LITERAL(13, 218, 17) // "on_btnAdd_clicked"
+QT_MOC_LITERAL(13, 218, 17), // "on_btnAdd_clicked"
+QT_MOC_LITERAL(14, 236, 23) // "on_btnReconnect_clicked"
 
     },
     "Widget\0previousPositionChanged\0\0"
@@ -52,7 +53,8 @@ QT_MOC_LITERAL(13, 218, 17) // "on_btnAdd_clicked"
     "on_btnPrevious_clicked\0on_btnStop_clicked\0"
     "on_btnPlay_clicked\0on_btnPause_clicked\0"
     "on_btnNext_clicked\0on_volController_valueChanged\0"
-    "value\0drawSpectrum\0on_btnAdd_clicked"
+    "value\0drawSpectrum\0on_btnAdd_clicked\0"
+    "on_btnReconnect_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -62,26 +64,27 @@ static const uint qt_meta_data_Widget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      10,   14, // methods
-       1,   80, // properties
+      11,   14, // methods
+       1,   86, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   64,    2, 0x06 /* Public */,
+       1,    1,   69,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       4,    1,   67,    2, 0x0a /* Public */,
-       5,    0,   70,    2, 0x08 /* Private */,
-       6,    0,   71,    2, 0x08 /* Private */,
-       7,    0,   72,    2, 0x08 /* Private */,
-       8,    0,   73,    2, 0x08 /* Private */,
-       9,    0,   74,    2, 0x08 /* Private */,
-      10,    1,   75,    2, 0x08 /* Private */,
-      12,    0,   78,    2, 0x08 /* Private */,
-      13,    0,   79,    2, 0x08 /* Private */,
+       4,    1,   72,    2, 0x0a /* Public */,
+       5,    0,   75,    2, 0x08 /* Private */,
+       6,    0,   76,    2, 0x08 /* Private */,
+       7,    0,   77,    2, 0x08 /* Private */,
+       8,    0,   78,    2, 0x08 /* Private */,
+       9,    0,   79,    2, 0x08 /* Private */,
+      10,    1,   80,    2, 0x08 /* Private */,
+      12,    0,   83,    2, 0x08 /* Private */,
+      13,    0,   84,    2, 0x08 /* Private */,
+      14,    0,   85,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QPoint,    3,
@@ -94,6 +97,7 @@ static const uint qt_meta_data_Widget[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,   11,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -122,6 +126,7 @@ void Widget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 7: _t->on_volController_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 8: _t->drawSpectrum(); break;
         case 9: _t->on_btnAdd_clicked(); break;
+        case 10: _t->on_btnReconnect_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -181,13 +186,13 @@ int Widget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 10)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 10)
+        if (_id < 11)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 10;
+        _id -= 11;
     }
 #ifndef QT_NO_PROPERTIES
    else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty

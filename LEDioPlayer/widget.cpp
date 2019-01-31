@@ -85,11 +85,11 @@ Widget::~Widget()
     delete timer;
 }
 
-void Widget::drawSpectrum(){
+/*void Widget::drawSpectrum(){
 
     if(!running) return;
 
-    float fft[1024];
+    float fft[2048];
 
     m_player->getFFT(fft);
 
@@ -160,13 +160,13 @@ void Widget::drawSpectrum(){
 
     if (m_player->GetPosOfStream() >= m_player->GetTimeOfStream())
         on_btnNext_clicked();
-}
+}*/
 
-/*void Widget::drawSpectrum(){
+void Widget::drawSpectrum(){
 
     if(!running) return;
 
-    float fft[1024];
+    float fft[2048];
     float average[32];
 
     m_player->getFFT(fft);
@@ -177,36 +177,98 @@ void Widget::drawSpectrum(){
 
     //getting values
     for (byte i = 0; i < 32; i++)
-        for (byte j = 0; j < 32; j++)
-            average[i*32 + j] += sqrt(fft[i*32 + j]);
+        average[i] += sqrt(fft[i]);
+        //for (byte j = 0; j < 32; j++)
+            //average[i] += sqrt(fft[i*32 + j]);
+            //average[i*32 + j] += sqrt(fft[i*32 + j]);
 
-    // RGB
+    // vectors
+    float v1 = 0;
+    float v2 = 0;
+    float v3 = 0;
+
+    // V1
+    for (int i = 512; i < 1024; i++) {
+        v1 = v1 + sqrt(fft[i]) * (((2*i)/1024) - 1);
+    }
+
+    // V2
+    for (int i = 0; i < 512; i++) {
+        v2 = v2 + sqrt(fft[i]) * (i/1024);
+    }
+
+    for (int i = 512; i < 1024; i++) {
+        v2 = v2 + sqrt(fft[i]) * (1 - i/1024);
+    }
+
+    // V3
+    for (int i = 0; i < 512; i++) {
+        v3 = v3 + sqrt(fft[i]) * (1 - (2*i/1024));
+    }
+
+    float level = m_player->GetLevel();
+    if (level < 0) level*=-1;
+
+
+    float vmax = (v1 > v2) ? ((v1 > v3) ? v1 : v3) : ((v2 > v3) ? v2 : v3);
+
+
+
+    if (vmax == 0) vmax = 1;
+
+    v1 /= vmax;
+    v2 /= vmax;
+    v3 /= vmax;
+
+    // Color calculating
     float r = 0;
     float g = 0;
     float b = 0;
 
-    // Green
-    for (int i = 512; i < 1024; i++) {
-        g = g + sqrt(fft[i]) * (((2*i)/1024) - 1);
+    if (level > (ui->level->value()/100)){
+        r = level*(ui->v1r->value()*v1 + ui->v2r->value()*v2 + ui->v3r->value()*v3);
+        g = level*(ui->v1g->value()*v1 + ui->v2g->value()*v2 + ui->v3g->value()*v3);
+        b = level*(ui->v1b->value()*v1 + ui->v2b->value()*v2 + ui->v3b->value()*v3);
+    } else {
+        r = 0;
+        g = 0;
+        b = 0;
     }
 
-    // Blue
-    for (int i = 0; i < 512; i++) {
-        b = b + sqrt(fft[i]) * (i/1024);
-    }
+    ui->v1r->setStyleSheet("QSlider{background-color:rgb(" + QString::number(ui->v1r->value()) + "," +
+                           QString::number(ui->v1g->value()) + "," + QString::number(ui->v1b->value()) + ", 255);}"
+                           "QSlider::handle:horizontal{background-color:rgb(255, 0, 0, 255);}");
+    ui->v1g->setStyleSheet("QSlider{background-color:rgb(" + QString::number(ui->v1r->value()) + "," +
+                           QString::number(ui->v1g->value()) + "," + QString::number(ui->v1b->value()) + ", 255);}"
+                           "QSlider::handle:horizontal{background-color:rgb(0, 255, 0, 255);}");
+    ui->v1b->setStyleSheet("QSlider{background-color:rgb(" + QString::number(ui->v1r->value()) + "," +
+                           QString::number(ui->v1g->value()) + "," + QString::number(ui->v1b->value()) + ", 255);}"
+                           "QSlider::handle:horizontal{background-color:rgb(0, 0, 255, 255);}");
 
-    for (int i = 512; i < 1024; i++) {
-        b = b + sqrt(fft[i]) * (1 - i/1024);
-    }
+    ui->v2r->setStyleSheet("QSlider{background-color:rgb(" + QString::number(ui->v2r->value()) + "," +
+                           QString::number(ui->v2g->value()) + "," + QString::number(ui->v2b->value()) + ", 255);}"
+                           "QSlider::handle:horizontal{background-color:rgb(255, 0, 0, 255);}");
+    ui->v2g->setStyleSheet("QSlider{background-color:rgb(" + QString::number(ui->v2r->value()) + "," +
+                           QString::number(ui->v2g->value()) + "," + QString::number(ui->v2b->value()) + ", 255);}"
+                           "QSlider::handle:horizontal{background-color:rgb(0, 255, 0, 255);}");
+    ui->v2b->setStyleSheet("QSlider{background-color:rgb(" + QString::number(ui->v2r->value()) + "," +
+                           QString::number(ui->v2g->value()) + "," + QString::number(ui->v2b->value()) + ", 255);}"
+                           "QSlider::handle:horizontal{background-color:rgb(0, 0, 255, 255);}");
 
-    // Red
-    for (int i = 0; i < 512; i++) {
-        r = r + sqrt(fft[i]) * (1 - (2*i/1024));
-    }
+    ui->v3r->setStyleSheet("QSlider{background-color:rgb(" + QString::number(ui->v3r->value()) + "," +
+                           QString::number(ui->v3g->value()) + "," + QString::number(ui->v3b->value()) + ", 255);}"
+                           "QSlider::handle:horizontal{background-color:rgb(255, 0, 0, 255);}");
+    ui->v3g->setStyleSheet("QSlider{background-color:rgb(" + QString::number(ui->v3r->value()) + "," +
+                           QString::number(ui->v3g->value()) + "," + QString::number(ui->v3b->value()) + ", 255);}"
+                           "QSlider::handle:horizontal{background-color:rgb(0, 255, 0, 255);}");
+    ui->v3b->setStyleSheet("QSlider{background-color:rgb(" + QString::number(ui->v3r->value()) + "," +
+                           QString::number(ui->v3g->value()) + "," + QString::number(ui->v3b->value()) + ", 255);}"
+                           "QSlider::handle:horizontal{background-color:rgb(0, 0, 255, 255);}");
 
-    float level = abs(m_player->GetLevel());
+    // Debug
+    qDebug() << level << " " << r << " " << g << " " << b;
 
-    qDebug() << m_player->GetLevel() << " " << r << " " << g << " " << b;
+    if(m_transmitter->isConnected()) m_transmitter->writeRGB(int(r), int(g), int(b));
 
     // drawing
     ui->slider_0-> setValue(int(average[0] *1400)/1);
@@ -247,7 +309,7 @@ void Widget::drawSpectrum(){
 
     if (m_player->GetPosOfStream() >= m_player->GetTimeOfStream())
         on_btnNext_clicked();
-}*/
+}
 
 void Widget::applyStyles()
 {
@@ -276,6 +338,8 @@ void Widget::applyStyles()
     // Sliders
     ui->volController->setStyleSheet(StyleHelper::getSliderStyleSheet());
     ui->timeController->setStyleSheet(StyleHelper::getSliderStyleSheet());
+
+    ui->level->setStyleSheet(StyleHelper::getSliderStyleSheet());
 
     // Window control buttons
     ui->btn_minimize->setStyleSheet(StyleHelper::getMinimizeStyleSheet());
@@ -559,4 +623,9 @@ void Widget::toZeroValues()
     ui->slider_29->setValue(0);
     ui->slider_30->setValue(0);
     ui->slider_31->setValue(0);
+}
+
+void Widget::on_btnReconnect_clicked()
+{
+    m_transmitter = new Transmitter(this);
 }

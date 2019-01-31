@@ -60,6 +60,8 @@ private slots:
 
     void on_btnAdd_clicked();
 
+    void on_btnReconnect_clicked();
+
 protected:
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);

@@ -36,6 +36,18 @@ public:
     QVBoxLayout *verticalLayout_3;
     QHBoxLayout *horizontalLayout_3;
     QSpacerItem *horizontalSpacer_8;
+    QSlider *v1r;
+    QSlider *v1g;
+    QSlider *v1b;
+    QSpacerItem *horizontalSpacer_10;
+    QSlider *v2r;
+    QSlider *v2g;
+    QSlider *v2b;
+    QSpacerItem *horizontalSpacer_11;
+    QSlider *v3r;
+    QSlider *v3g;
+    QSlider *v3b;
+    QSpacerItem *horizontalSpacer_9;
     QToolButton *btn_minimize;
     QToolButton *btn_maximize;
     QToolButton *btn_close;
@@ -81,6 +93,9 @@ public:
     QSlider *timeController;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer_7;
+    QSlider *level;
+    QSpacerItem *horizontalSpacer_12;
+    QToolButton *btnReconnect;
     QSpacerItem *horizontalSpacer;
     QToolButton *btnPrevious;
     QSpacerItem *horizontalSpacer_3;
@@ -123,6 +138,81 @@ public:
         horizontalSpacer_8 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_3->addItem(horizontalSpacer_8);
+
+        v1r = new QSlider(centralWidget);
+        v1r->setObjectName(QStringLiteral("v1r"));
+        v1r->setMaximum(255);
+        v1r->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_3->addWidget(v1r);
+
+        v1g = new QSlider(centralWidget);
+        v1g->setObjectName(QStringLiteral("v1g"));
+        v1g->setMaximum(255);
+        v1g->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_3->addWidget(v1g);
+
+        v1b = new QSlider(centralWidget);
+        v1b->setObjectName(QStringLiteral("v1b"));
+        v1b->setMaximum(255);
+        v1b->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_3->addWidget(v1b);
+
+        horizontalSpacer_10 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_10);
+
+        v2r = new QSlider(centralWidget);
+        v2r->setObjectName(QStringLiteral("v2r"));
+        v2r->setMaximum(255);
+        v2r->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_3->addWidget(v2r);
+
+        v2g = new QSlider(centralWidget);
+        v2g->setObjectName(QStringLiteral("v2g"));
+        v2g->setMaximum(255);
+        v2g->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_3->addWidget(v2g);
+
+        v2b = new QSlider(centralWidget);
+        v2b->setObjectName(QStringLiteral("v2b"));
+        v2b->setMaximum(255);
+        v2b->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_3->addWidget(v2b);
+
+        horizontalSpacer_11 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_11);
+
+        v3r = new QSlider(centralWidget);
+        v3r->setObjectName(QStringLiteral("v3r"));
+        v3r->setMaximum(255);
+        v3r->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_3->addWidget(v3r);
+
+        v3g = new QSlider(centralWidget);
+        v3g->setObjectName(QStringLiteral("v3g"));
+        v3g->setMaximum(255);
+        v3g->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_3->addWidget(v3g);
+
+        v3b = new QSlider(centralWidget);
+        v3b->setObjectName(QStringLiteral("v3b"));
+        v3b->setMaximum(255);
+        v3b->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_3->addWidget(v3b);
+
+        horizontalSpacer_9 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_9);
 
         btn_minimize = new QToolButton(centralWidget);
         btn_minimize->setObjectName(QStringLiteral("btn_minimize"));
@@ -595,6 +685,22 @@ public:
 
         horizontalLayout_2->addItem(horizontalSpacer_7);
 
+        level = new QSlider(centralWidget);
+        level->setObjectName(QStringLiteral("level"));
+        level->setMaximum(100);
+        level->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_2->addWidget(level);
+
+        horizontalSpacer_12 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_12);
+
+        btnReconnect = new QToolButton(centralWidget);
+        btnReconnect->setObjectName(QStringLiteral("btnReconnect"));
+
+        horizontalLayout_2->addWidget(btnReconnect);
+
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_2->addItem(horizontalSpacer);
@@ -710,6 +816,7 @@ public:
         btn_close->setText(QString());
         btnAdd->setText(QApplication::translate("Widget", "+", nullptr));
         label_Audio->setText(QString());
+        btnReconnect->setText(QApplication::translate("Widget", "R", nullptr));
         btnPrevious->setText(QString());
         btnStop->setText(QString());
         btnPlay->setText(QString());
