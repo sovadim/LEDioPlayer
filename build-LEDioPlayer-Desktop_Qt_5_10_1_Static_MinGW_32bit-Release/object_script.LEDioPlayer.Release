@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\widget.o
+./release\mediaplayer.o
+./release\stylehelper.o
+./release\transmitter.o
+./release\ledioplayer_plugin_import.o
+./release\qrc_images.o
+./release\moc_widget.o
+./release\moc_mediaplayer.o
+./release\moc_transmitter.o
+);

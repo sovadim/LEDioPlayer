@@ -33,7 +33,6 @@ Widget::Widget(QWidget *parent) :
 
     // Audio player itself
     m_player = new MediaPlayer(this);
-    ui->label_Audio->setText("m_player inited");
 
     // this variable contain index of audio selected on playlist
     selectedAudioIndex = 0;
@@ -86,7 +85,7 @@ Widget::~Widget()
     delete timer;
 }
 
-/*void Widget::drawSpectrum(){
+void Widget::drawSpectrum(){
 
     if(!running) return;
 
@@ -161,9 +160,9 @@ Widget::~Widget()
 
     if (m_player->GetPosOfStream() >= m_player->GetTimeOfStream())
         on_btnNext_clicked();
-}*/
+}
 
-void Widget::drawSpectrum(){
+/*void Widget::drawSpectrum(){
 
     if(!running) return;
 
@@ -248,7 +247,7 @@ void Widget::drawSpectrum(){
 
     if (m_player->GetPosOfStream() >= m_player->GetTimeOfStream())
         on_btnNext_clicked();
-}
+}*/
 
 void Widget::applyStyles()
 {

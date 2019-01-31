@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\widget.o
+./debug\mediaplayer.o
+./debug\stylehelper.o
+./debug\transmitter.o
+./debug\ledioplayer_plugin_import.o
+./debug\qrc_images.o
+./debug\moc_widget.o
+./debug\moc_mediaplayer.o
+./debug\moc_transmitter.o
+);
