@@ -87,7 +87,7 @@ QString StyleHelper::getSliderStyleSheet()
             "border-color: #999;"
             "}"
             "QSlider::handle:horizontal:disabled {"
-            "background: rgb(207,216,220, 70);"
+            "background: rgb(207,216,220,70);"
             "border: 1px solid #aaa;"
             "border-radius: 4px;"
             "}";
@@ -100,7 +100,7 @@ QString StyleHelper::getCloseStyleSheet()
            "icon-size: 32px;"
            "padding: 6px;"
            "border: none;"
-           "background-color: rgb(0,0,0, 0);"
+           "background-color: rgb(0,0,0,0);"
            "}"
            "QToolButton:hover {"
            "image: url(:/images_folder/btnClose_hover.png);"
@@ -116,7 +116,7 @@ QString StyleHelper::getMaximizeStyleSheet(){
            "icon-size: 32px;"
            "padding: 6px;"
            "border: none;"
-           "background-color: rgb(0,0,0, 0);"
+           "background-color: rgb(0,0,0,0);"
            "}"
            "QToolButton:hover {"
            "image: url(:/images_folder/btnSize_hover.png);"
@@ -126,24 +126,20 @@ QString StyleHelper::getMaximizeStyleSheet(){
            "}";
 }
 
-QString StyleHelper::getRestoreStyleSheet(){
+QString StyleHelper::getSettingsStyleSheet(){
     return "QToolButton {"
-            "image: url(:/images_folder/filename.png);"
-            "background-color: #292929;"
-            "icon-size: 12px;"
-            "padding-left: 10px;"
-            "padding-right: 10px;"
-            "padding-top: 5px;"
-            "padding-bottom: 5px;"
-            "border: 1px solid #292929;"
-            "}"
-            "QToolButton:hover {"
-            "image: url(:/images_folder/filename.png);"
-            "}"
-            "QToolButton:pressed {"
-            "image: url(:/images_folder/filename.png);"
-            "background-color: #de8e37;"
-            "}";
+           "image: url(:/images_folder/btnSettings_original.png);"
+           "icon-size: 32px;"
+           "padding: 6px;"
+           "border: none;"
+           "background-color: rgb(0,0,0,0);"
+           "}"
+           "QToolButton:hover {"
+           "image: url(:/images_folder/btnSettings_hover.png);"
+           "}"
+           "QToolButton:pressed {"
+           "image: url(:/images_folder/btnSettings_pressed.png);"
+           "}";
 }
 
 QString StyleHelper::getMinimizeStyleSheet(){
@@ -152,7 +148,7 @@ QString StyleHelper::getMinimizeStyleSheet(){
            "icon-size: 32px;"
            "padding: 6px;"
            "border: none;"
-           "background-color: rgb(0,0,0, 0);"
+           "background-color: rgb(0,0,0,0);"
            "}"
            "QToolButton:hover {"
            "image: url(:/images_folder/btnMin_hover.png);"

@@ -7,12 +7,15 @@
 #include <QGraphicsDropShadowEffect>
 #include "stylehelper.h"
 #include "math.h"
+#include "settings.h"
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
+
+    this->setWindowIcon(QIcon(":/images_folder/icon.ico"));
 
     // Styles settings
     applyStyles();
@@ -46,7 +49,7 @@ Widget::~Widget()
     delete ui;
     delete playListModel;
     delete m_player;
-    //delete timer;
+    delete timer;
 }
 
 void Widget::connectAll(){
@@ -143,84 +146,13 @@ void Widget::connectAll(){
         m_transmitter = new Transmitter(this);
     });
 
+    connect(ui->btn_settings, &QToolButton::clicked, [this](){
+        qDebug() << "settings";
+        //s.setParent(this);
+        s.show();
+    });
+
 }
-
-/*void Widget::drawSpectrum(){
-    //delay 12
-    if(!running) return;
-
-    float fft[2048];
-
-    m_player->getFFT(fft);
-
-    float r = 0;
-    float g = 0;
-    float b = 0;
-
-    byte delta = 6;
-
-    // RED
-    for (byte i = 0; i < delta; i++)
-        r += fft[i];
-
-    r = r/delta * r/delta * 7 * 255 + 1;
-
-    // GREEN
-    for (byte i = 4; i < 4 + delta; i++)
-        g += fft[i];
-
-    g = g/delta * g/delta * 10 * 255 + 1;
-
-    // BLUE
-    for (byte i = 8; i < 8 + delta; i++)
-        b += fft[i];
-
-    b = b/delta * b/delta * 13 * 255 + 1;
-
-    if (r > 255) {b += (r - 255); r = 255;}
-    if (g > 255) g = 255;
-    if (b > 255) b = 255;
-
-    if(m_transmitter->isConnected()) m_transmitter->writeRGB(int(r), int(g), int(b));
-
-    ui->slider_0-> setValue(int(fft[0]*2500)/1);
-    ui->slider_1-> setValue(int(fft[1]*2500)/1);
-    ui->slider_2-> setValue(int(fft[2]*2500)/1);
-    ui->slider_3-> setValue(int(fft[3]*2500)/1);
-    ui->slider_4-> setValue(int(fft[4]*2500)/1);
-    ui->slider_5-> setValue(int(fft[5]*2500)/1);
-    ui->slider_6-> setValue(int(fft[6]*2500)/1);
-    ui->slider_7-> setValue(int(fft[7]*2500)/1);
-    ui->slider_8-> setValue(int(fft[8]*2500)/1);
-    ui->slider_9-> setValue(int(fft[9]*2500)/1);
-    ui->slider_10->setValue(int(fft[10]*2500)/1);
-    ui->slider_11->setValue(int(fft[11]*2500)/1);
-    ui->slider_12->setValue(int(fft[12]*2500)/1);
-    ui->slider_13->setValue(int(fft[13]*2500)/1);
-    ui->slider_14->setValue(int(fft[14]*2500)/1);
-    ui->slider_15->setValue(int(fft[15]*2500)/1);
-    ui->slider_16->setValue(int(fft[16]*2500)/1);
-    ui->slider_17->setValue(int(fft[17]*2500)/1);
-    ui->slider_18->setValue(int(fft[18]*2500)/1);
-    ui->slider_19->setValue(int(fft[19]*2500)/1);
-    ui->slider_20->setValue(int(fft[20]*2500)/1);
-    ui->slider_21->setValue(int(fft[21]*2500)/1);
-    ui->slider_22->setValue(int(fft[22]*2500)/1);
-    ui->slider_23->setValue(int(fft[23]*2500)/1);
-    ui->slider_24->setValue(int(fft[24]*2500)/1);
-    ui->slider_25->setValue(int(fft[25]*2500)/1);
-    ui->slider_26->setValue(int(fft[26]*2500)/1);
-    ui->slider_27->setValue(int(fft[27]*2500)/1);
-    ui->slider_28->setValue(int(fft[28]*2500)/1);
-    ui->slider_29->setValue(int(fft[29]*2500)/1);
-    ui->slider_30->setValue(int(fft[30]*2500)/1);
-    ui->slider_31->setValue(int(fft[31]*2500)/1);
-
-    ui->timeController->setValue(int((( float(m_player->GetPosOfStream()) / m_player->GetTimeOfStream()) *1000)));
-
-    if (m_player->GetPosOfStream() >= m_player->GetTimeOfStream())
-        on_btnNext_clicked();
-}*/
 
 void Widget::drawSpectrum(){
 
@@ -238,94 +170,8 @@ void Widget::drawSpectrum(){
     //getting values
     for (byte i = 0; i < 32; i++)
         average[i] += sqrt(fft[i]);
-        //for (byte j = 0; j < 32; j++)
-            //average[i] += sqrt(fft[i*32 + j]);
-            //average[i*32 + j] += sqrt(fft[i*32 + j]);
 
-    // vectors
-    float v1 = 0;
-    float v2 = 0;
-    float v3 = 0;
-
-    // V1
-    for (int i = 512; i < 1024; i++) {
-        v1 = v1 + sqrt(fft[i]) * (((2*i)/1024) - 1);
-    }
-
-    // V2
-    for (int i = 0; i < 512; i++) {
-        v2 = v2 + sqrt(fft[i]) * (i/1024);
-    }
-
-    for (int i = 512; i < 1024; i++) {
-        v2 = v2 + sqrt(fft[i]) * (1 - i/1024);
-    }
-
-    // V3
-    for (int i = 0; i < 512; i++) {
-        v3 = v3 + sqrt(fft[i]) * (1 - (2*i/1024));
-    }
-
-    float level = m_player->GetLevel();
-    if (level < 0) level*=-1;
-
-    float vmax = (v1 > v2) ? ((v1 > v3) ? v1 : v3) : ((v2 > v3) ? v2 : v3);
-
-    if (vmax == 0) vmax = 1;
-
-    v1 /= vmax;
-    v2 /= vmax;
-    v3 /= vmax;
-
-    // Color calculating
-    float r = 0;
-    float g = 0;
-    float b = 0;
-
-    if (level > (ui->level->value()/100)){
-        r = level*(ui->v1r->value()*v1 + ui->v2r->value()*v2 + ui->v3r->value()*v3);
-        g = level*(ui->v1g->value()*v1 + ui->v2g->value()*v2 + ui->v3g->value()*v3);
-        b = level*(ui->v1b->value()*v1 + ui->v2b->value()*v2 + ui->v3b->value()*v3);
-    } else {
-        r = 0;
-        g = 0;
-        b = 0;
-    }
-
-    ui->v1r->setStyleSheet("QSlider{background-color:rgb(" + QString::number(ui->v1r->value()) + "," +
-                           QString::number(ui->v1g->value()) + "," + QString::number(ui->v1b->value()) + ", 255);}"
-                           "QSlider::handle:horizontal{background-color:rgb(255, 0, 0, 255);}");
-    ui->v1g->setStyleSheet("QSlider{background-color:rgb(" + QString::number(ui->v1r->value()) + "," +
-                           QString::number(ui->v1g->value()) + "," + QString::number(ui->v1b->value()) + ", 255);}"
-                           "QSlider::handle:horizontal{background-color:rgb(0, 255, 0, 255);}");
-    ui->v1b->setStyleSheet("QSlider{background-color:rgb(" + QString::number(ui->v1r->value()) + "," +
-                           QString::number(ui->v1g->value()) + "," + QString::number(ui->v1b->value()) + ", 255);}"
-                           "QSlider::handle:horizontal{background-color:rgb(0, 0, 255, 255);}");
-
-    ui->v2r->setStyleSheet("QSlider{background-color:rgb(" + QString::number(ui->v2r->value()) + "," +
-                           QString::number(ui->v2g->value()) + "," + QString::number(ui->v2b->value()) + ", 255);}"
-                           "QSlider::handle:horizontal{background-color:rgb(255, 0, 0, 255);}");
-    ui->v2g->setStyleSheet("QSlider{background-color:rgb(" + QString::number(ui->v2r->value()) + "," +
-                           QString::number(ui->v2g->value()) + "," + QString::number(ui->v2b->value()) + ", 255);}"
-                           "QSlider::handle:horizontal{background-color:rgb(0, 255, 0, 255);}");
-    ui->v2b->setStyleSheet("QSlider{background-color:rgb(" + QString::number(ui->v2r->value()) + "," +
-                           QString::number(ui->v2g->value()) + "," + QString::number(ui->v2b->value()) + ", 255);}"
-                           "QSlider::handle:horizontal{background-color:rgb(0, 0, 255, 255);}");
-
-    ui->v3r->setStyleSheet("QSlider{background-color:rgb(" + QString::number(ui->v3r->value()) + "," +
-                           QString::number(ui->v3g->value()) + "," + QString::number(ui->v3b->value()) + ", 255);}"
-                           "QSlider::handle:horizontal{background-color:rgb(255, 0, 0, 255);}");
-    ui->v3g->setStyleSheet("QSlider{background-color:rgb(" + QString::number(ui->v3r->value()) + "," +
-                           QString::number(ui->v3g->value()) + "," + QString::number(ui->v3b->value()) + ", 255);}"
-                           "QSlider::handle:horizontal{background-color:rgb(0, 255, 0, 255);}");
-    ui->v3b->setStyleSheet("QSlider{background-color:rgb(" + QString::number(ui->v3r->value()) + "," +
-                           QString::number(ui->v3g->value()) + "," + QString::number(ui->v3b->value()) + ", 255);}"
-                           "QSlider::handle:horizontal{background-color:rgb(0, 0, 255, 255);}");
-
-    // Debug
-    qDebug() << level << " " << r << " " << g << " " << b << " " << delay;
-
-    if(m_transmitter->isConnected()) m_transmitter->writeRGB(int(r), int(g), int(b), char(delay));
+    Settings::get_mode() ? playMode1(fft) : playMode2(fft);
 
     // drawing
     ui->slider_0-> setValue(int(average[0] *1400)/1);
@@ -366,6 +212,97 @@ void Widget::drawSpectrum(){
 
     if (m_player->GetPosOfStream() >= m_player->GetTimeOfStream())
         ui->btnNext->click();
+}
+
+void Widget::playMode1(float *fft){
+    qDebug() << "Mode1";
+
+    float r = 0;
+    float g = 0;
+    float b = 0;
+
+    byte delta = 6;
+
+    // RED
+    for (byte i = 0; i < delta; i++)
+        r += fft[i];
+
+    r = r/delta * r/delta * 7 * 255 + 1;
+
+    // GREEN
+    for (byte i = 4; i < 4 + delta; i++)
+        g += fft[i];
+
+    g = g/delta * g/delta * 10 * 255 + 1;
+
+    // BLUE
+    for (byte i = 8; i < 8 + delta; i++)
+        b += fft[i];
+
+    b = b/delta * b/delta * 13 * 255 + 1;
+
+    if (r > 255) {b += (r - 255); r = 255;}
+    if (g > 255) g = 255;
+    if (b > 255) b = 255;
+
+    if(m_transmitter->isConnected()) m_transmitter->writeRGB(int(r), int(g), int(b), 12);
+}
+
+void Widget::playMode2(float *fft){
+    // vectors
+    float v1 = 0;
+    float v2 = 0;
+    float v3 = 0;
+
+    // V1
+    for (int i = 512; i < 1024; i++) {
+        v1 = v1 + sqrt(fft[i]) * (((2*i)/1024) - 1);
+    }
+
+    // V2
+    for (int i = 0; i < 512; i++) {
+        v2 = v2 + sqrt(fft[i]) * (i/1024);
+    }
+
+    for (int i = 512; i < 1024; i++) {
+        v2 = v2 + sqrt(fft[i]) * (1 - i/1024);
+    }
+
+    // V3
+    for (int i = 0; i < 512; i++) {
+        v3 = v3 + sqrt(fft[i]) * (1 - (2*i/1024));
+    }
+
+    float level = m_player->GetLevel();
+    if (level < 0) level*=-1;
+
+    float vmax = (v1 > v2) ? ((v1 > v3) ? v1 : v3) : ((v2 > v3) ? v2 : v3);
+
+    if (vmax == 0) vmax = 1;
+
+    v1 /= vmax;
+    v2 /= vmax;
+    v3 /= vmax;
+
+    // Color calculating
+    float r = 0;
+    float g = 0;
+    float b = 0;
+
+    if (level > Settings::get_minLevel()){
+        r = level*(Settings::get_v1r()*v1 + Settings::get_v2r()*v2 + Settings::get_v3r()*v3);
+        g = level*(Settings::get_v1g()*v1 + Settings::get_v2g()*v2 + Settings::get_v3g()*v3);
+        b = level*(Settings::get_v1b()*v1 + Settings::get_v3b()*v2 + Settings::get_v3b()*v3);
+    } else {
+        r = 0;
+        g = 0;
+        b = 0;
+    }
+
+    // Debug
+    qDebug() << level << " " << r << " " << g << " " << b << " " << delay << " " << Settings::get_mode();
+
+    if(m_transmitter->isConnected()) m_transmitter->writeRGB(int(r), int(g), int(b), char(delay));
 }
 
 void Widget::applyStyles()
@@ -412,12 +349,13 @@ void Widget::applyStyles()
     ui->volController->setStyleSheet(StyleHelper::getSliderStyleSheet());
     ui->timeController->setStyleSheet(StyleHelper::getSliderStyleSheet());
 
-    ui->level->setStyleSheet(StyleHelper::getSliderStyleSheet());
-
     // Window control buttons
     ui->btn_minimize->setStyleSheet(StyleHelper::getMinimizeStyleSheet());
     ui->btn_maximize->setStyleSheet(StyleHelper::getMaximizeStyleSheet());
     ui->btn_close->setStyleSheet(StyleHelper::getCloseStyleSheet());
+
+    // Settings
+    ui->btn_settings->setStyleSheet(StyleHelper::getSettingsStyleSheet());
 
     // Progress bars
     ui->slider_0 ->setStyleSheet(StyleHelper::getBarStyleSheet());

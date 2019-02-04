@@ -28,5 +28,9 @@
         <file>images_folder/btnReconnect_hover.png</file>
         <file>images_folder/btnReconnect_original.png</file>
         <file>images_folder/btnReconnect_pressed.png</file>
+        <file>images_folder/icon.ico</file>
+        <file>images_folder/btnSettings_original.png</file>
+        <file>images_folder/btnSettings_hover.png</file>
+        <file>images_folder/btnSettings_pressed.png</file>
     </qresource>
 </RCC>

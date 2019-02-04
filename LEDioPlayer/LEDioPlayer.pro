@@ -29,16 +29,19 @@ SOURCES += \
         widget.cpp \
     mediaplayer.cpp \
     stylehelper.cpp \
-    transmitter.cpp
+    transmitter.cpp \
+    settings.cpp
 
 HEADERS += \
         widget.h \
     mediaplayer.h \
     stylehelper.h \
     transmitter.h \
+    settings.h
 
 FORMS += \
-        widget.ui
+        widget.ui \
+    settings.ui
 
 win32: LIBS += -L$$PWD/../bass/ -lbass
 

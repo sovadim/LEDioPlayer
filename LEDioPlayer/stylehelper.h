@@ -10,7 +10,7 @@ public:
     static QString getLabelStyleSheet();
     static QString getCloseStyleSheet();
     static QString getMaximizeStyleSheet();
-    static QString getRestoreStyleSheet();
+    static QString getSettingsStyleSheet();
     static QString getMinimizeStyleSheet();
     static QString getNextStyleSheet();
     static QString getPreviousStyleSheet();

@@ -13,6 +13,7 @@
 #include "bass.h"
 #include "transmitter.h"
 #include <QMouseEvent>
+#include "settings.h"
 
 namespace Ui {
 class Widget;
@@ -48,6 +49,10 @@ private slots:
     void on_volController_valueChanged(int value);
 
     void drawSpectrum();
+
+    void playMode1(float *fft);
+
+    void playMode2(float *fft);
 
     void on_btnAdd_clicked();
 
@@ -88,6 +93,8 @@ private:
     Transmitter *m_transmitter;
 
     byte delay;
+
+    Settings s;
 };
 
 #endif // WIDGET_H
