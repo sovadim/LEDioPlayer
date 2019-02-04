@@ -216,7 +216,7 @@ QString StyleHelper::getPlayStyleSheet(){
            "icon-size: 22px;"
            "padding: 6px;"
            "border: none;"
-           "background-color: rgb(0,0,0, 0);"
+           "background-color: rgb(0,0,0,0);"
            "}"
            "QToolButton:hover {"
            "image: url(:/images_folder/btnPlay_hover.png);"
