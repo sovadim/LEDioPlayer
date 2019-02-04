@@ -816,7 +816,7 @@ public:
         btn_close->setText(QString());
         btnAdd->setText(QApplication::translate("Widget", "+", nullptr));
         label_Audio->setText(QString());
-        btnReconnect->setText(QApplication::translate("Widget", "R", nullptr));
+        btnReconnect->setText(QString());
         btnPrevious->setText(QString());
         btnStop->setText(QString());
         btnPlay->setText(QString());

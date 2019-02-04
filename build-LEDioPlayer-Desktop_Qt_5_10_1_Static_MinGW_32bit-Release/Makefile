@@ -268,6 +268,7 @@ Makefile: ../LEDioPlayer/LEDioPlayer.pro C:/Qt/Static5101/5.10.1_Static/mkspecs/
 		C:/Qt/Static5101/5.10.1_Static/mkspecs/features/qt_config.prf \
 		C:/Qt/Static5101/5.10.1_Static/mkspecs/win32-g++/qmake.conf \
 		C:/Qt/Static5101/5.10.1_Static/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		C:/Qt/Static5101/5.10.1_Static/mkspecs/features/exclusive_builds.prf \
 		C:/Qt/Static5101/5.10.1_Static/mkspecs/features/toolchain.prf \
 		C:/Qt/Static5101/5.10.1_Static/mkspecs/features/default_pre.prf \
@@ -513,6 +514,7 @@ C:/Qt/Static5101/5.10.1_Static/mkspecs/features/qt_functions.prf:
 C:/Qt/Static5101/5.10.1_Static/mkspecs/features/qt_config.prf:
 C:/Qt/Static5101/5.10.1_Static/mkspecs/win32-g++/qmake.conf:
 C:/Qt/Static5101/5.10.1_Static/mkspecs/features/spec_post.prf:
+.qmake.stash:
 C:/Qt/Static5101/5.10.1_Static/mkspecs/features/exclusive_builds.prf:
 C:/Qt/Static5101/5.10.1_Static/mkspecs/features/toolchain.prf:
 C:/Qt/Static5101/5.10.1_Static/mkspecs/features/default_pre.prf:

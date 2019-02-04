@@ -53,6 +53,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     images.qrc
 
-DISTFILES += \
-    images_folder/btnClose_hover.jpg \
-    images_folder/btnClose_pressed.jpg
+DISTFILES +=

@@ -80,7 +80,6 @@ Widget::~Widget()
 {
     delete ui;
     delete playListModel;
-    m_player->free();
     delete m_player;
     delete timer;
 }
@@ -329,6 +328,7 @@ void Widget::applyStyles()
     ui->btnStop->setStyleSheet(StyleHelper::getStopStyleSheet());
     ui->btnPrevious->setStyleSheet(StyleHelper::getPreviousStyleSheet());
     ui->btnNext->setStyleSheet(StyleHelper::getNextStyleSheet());
+    ui->btnReconnect->setStyleSheet(StyleHelper::getReconnectStyleSheet());
     //
     ui->btnAdd->setStyleSheet(StyleHelper::getButtonAddStyleSheet());
 

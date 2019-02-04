@@ -65,8 +65,7 @@ OBJECTS       = release/main.o \
 		release/moc_mediaplayer.o \
 		release/moc_transmitter.o
 
-DIST          = images_folder/btnClose_hover.jpg \
-		images_folder/btnClose_pressed.jpg ..\LEDioPlayer\widget.h \
+DIST          =  ..\LEDioPlayer\widget.h \
 		..\LEDioPlayer\mediaplayer.h \
 		..\LEDioPlayer\stylehelper.h \
 		..\LEDioPlayer\transmitter.h ..\LEDioPlayer\main.cpp \
@@ -119,24 +118,33 @@ compiler_rcc_clean:
 release/qrc_images.cpp: ../LEDioPlayer/images.qrc \
 		C:/Qt/Static5101/5.10.1_Static/bin/rcc.exe \
 		../LEDioPlayer/images_folder/btnPlay_original.png \
+		../LEDioPlayer/images_folder/btnReconnect_pressed.png \
+		../LEDioPlayer/images_folder/btnSize_hover.png \
 		../LEDioPlayer/images_folder/btnNext_original.png \
+		../LEDioPlayer/images_folder/btnReconnect_hover.png \
 		../LEDioPlayer/images_folder/btnStop_pressed.png \
 		../LEDioPlayer/images_folder/btnPlay_pressed.png \
+		../LEDioPlayer/images_folder/btnMin_hover.png \
 		../LEDioPlayer/images_folder/btnPause_original.png \
 		../LEDioPlayer/images_folder/btnPrevious_original.png \
 		../LEDioPlayer/images_folder/btnStop_hover.png \
 		../LEDioPlayer/images_folder/btnPlay_hover.png \
 		../LEDioPlayer/images_folder/btnClose_pressed.png \
+		../LEDioPlayer/images_folder/btnMin_pressed.png \
+		../LEDioPlayer/images_folder/btnReconnect_original.png \
 		../LEDioPlayer/images_folder/btnClose_hover.png \
 		../LEDioPlayer/images_folder/btnNext_pressed.png \
 		../LEDioPlayer/images_folder/btnStop_original.png \
 		../LEDioPlayer/images_folder/btnPrevious_pressed.png \
 		../LEDioPlayer/images_folder/btnPause_pressed.png \
+		../LEDioPlayer/images_folder/btnSize_original.png \
 		../LEDioPlayer/images_folder/btnPause_hover.png \
 		../LEDioPlayer/images_folder/btnNext_hover.png \
+		../LEDioPlayer/images_folder/btnSize_pressed.png \
 		../LEDioPlayer/images_folder/btnPrevious_hover.png \
 		../LEDioPlayer/images_folder/background.jpg \
-		../LEDioPlayer/images_folder/btnClose_original.png
+		../LEDioPlayer/images_folder/btnClose_original.png \
+		../LEDioPlayer/images_folder/btnMin_original.png
 	C:\Qt\Static5101\5.10.1_Static\bin\rcc.exe -name images ..\LEDioPlayer\images.qrc -o release\qrc_images.cpp
 
 compiler_moc_predefs_make_all: release/moc_predefs.h
@@ -703,6 +711,54 @@ release/widget.o: ../LEDioPlayer/widget.cpp ../LEDioPlayer/widget.h \
 		C:/Qt/Static5101/5.10.1_Static/include/QtSerialPort/qserialportinfo.h \
 		C:/Qt/Static5101/5.10.1_Static/include/QtGui/QMouseEvent \
 		ui_widget.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtCore/QVariant \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/QAction \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qaction.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qactiongroup.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/QApplication \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qapplication.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtCore/qcoreapplication.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtCore/qeventloop.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtGui/qguiapplication.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtGui/qinputmethod.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/QButtonGroup \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qbuttongroup.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/QGridLayout \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qgridlayout.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qlayout.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qlayoutitem.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qboxlayout.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/QHBoxLayout \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/QHeaderView \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qheaderview.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qabstractitemview.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qframe.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtCore/qitemselectionmodel.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qabstractitemdelegate.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qstyleoption.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtGui/qvalidator.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtCore/qregularexpression.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qslider.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qabstractslider.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qstyle.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qtabbar.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qtabwidget.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qrubberband.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/QLabel \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qlabel.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/QProgressBar \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qprogressbar.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/QSlider \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/QSpacerItem \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/QTableView \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qtableview.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/QToolButton \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qtoolbutton.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/QVBoxLayout \
 		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/QFileDialog \
 		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qfiledialog.h \
 		C:/Qt/Static5101/5.10.1_Static/include/QtCore/qdir.h \
@@ -711,7 +767,6 @@ release/widget.o: ../LEDioPlayer/widget.cpp ../LEDioPlayer/widget.h \
 		C:/Qt/Static5101/5.10.1_Static/include/QtCore/QDir \
 		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/QPushButton \
 		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qpushbutton.h \
-		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qabstractbutton.h \
 		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/QGraphicsDropShadowEffect \
 		C:/Qt/Static5101/5.10.1_Static/include/QtWidgets/qgraphicseffect.h \
 		../LEDioPlayer/stylehelper.h \

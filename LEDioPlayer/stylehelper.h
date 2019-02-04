@@ -22,6 +22,7 @@ public:
     static QString getBarStyleSheet();
     static QString getSliderStyleSheet();
     static QString getButtonAddStyleSheet();
+    static QString getReconnectStyleSheet();
 };
 
 #endif // STYLEHELPER_H

@@ -19,5 +19,14 @@
         <file>images_folder/btnClose_hover.png</file>
         <file>images_folder/btnClose_original.png</file>
         <file>images_folder/btnClose_pressed.png</file>
+        <file>images_folder/btnSize_hover.png</file>
+        <file>images_folder/btnSize_original.png</file>
+        <file>images_folder/btnSize_pressed.png</file>
+        <file>images_folder/btnMin_hover.png</file>
+        <file>images_folder/btnMin_original.png</file>
+        <file>images_folder/btnMin_pressed.png</file>
+        <file>images_folder/btnReconnect_hover.png</file>
+        <file>images_folder/btnReconnect_original.png</file>
+        <file>images_folder/btnReconnect_pressed.png</file>
     </qresource>
 </RCC>

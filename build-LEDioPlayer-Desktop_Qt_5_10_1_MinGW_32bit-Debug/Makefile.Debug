@@ -63,8 +63,7 @@ OBJECTS       = debug/main.o \
 		debug/moc_mediaplayer.o \
 		debug/moc_transmitter.o
 
-DIST          = images_folder/btnClose_hover.jpg \
-		images_folder/btnClose_pressed.jpg ..\LEDioPlayer\widget.h \
+DIST          =  ..\LEDioPlayer\widget.h \
 		..\LEDioPlayer\mediaplayer.h \
 		..\LEDioPlayer\stylehelper.h \
 		..\LEDioPlayer\transmitter.h ..\LEDioPlayer\main.cpp \

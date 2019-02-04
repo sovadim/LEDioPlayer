@@ -112,17 +112,17 @@ QString StyleHelper::getCloseStyleSheet()
 
 QString StyleHelper::getMaximizeStyleSheet(){
     return "QToolButton {"
-           "image: url(:/images_folder/btnClose_original.png);"
+           "image: url(:/images_folder/btnSize_original.png);"
            "icon-size: 32px;"
            "padding: 6px;"
            "border: none;"
            "background-color: rgb(0,0,0, 0);"
            "}"
            "QToolButton:hover {"
-           "image: url(:/images_folder/btnClose_hover.png);"
+           "image: url(:/images_folder/btnSize_hover.png);"
            "}"
            "QToolButton:pressed {"
-           "image: url(:/images_folder/btnClose_pressed.png);"
+           "image: url(:/images_folder/btnSize_pressed.png);"
            "}";
 }
 
@@ -148,17 +148,17 @@ QString StyleHelper::getRestoreStyleSheet(){
 
 QString StyleHelper::getMinimizeStyleSheet(){
     return "QToolButton {"
-           "image: url(:/images_folder/btnClose_original.png);"
+           "image: url(:/images_folder/btnMin_original.png);"
            "icon-size: 32px;"
            "padding: 6px;"
            "border: none;"
            "background-color: rgb(0,0,0, 0);"
            "}"
            "QToolButton:hover {"
-           "image: url(:/images_folder/btnClose_hover.png);"
+           "image: url(:/images_folder/btnMin_hover.png);"
            "}"
            "QToolButton:pressed {"
-           "image: url(:/images_folder/btnClose_pressed.png);"
+           "image: url(:/images_folder/btnMin_pressed.png);"
            "}";
 }
 
@@ -296,4 +296,21 @@ QString StyleHelper::getButtonAddStyleSheet()
             "QToolButton:pressed {"
             "background-color: rgb(207,216,220, 70);"
             "}";
+}
+
+QString StyleHelper::getReconnectStyleSheet()
+{
+    return "QToolButton {"
+           "image: url(:/images_folder/btnReconnect_original.png);"
+           "icon-size: 22px;"
+           "padding: 6px;"
+           "border: none;"
+           "background-color: rgb(0,0,0,0);"
+           "}"
+           "QToolButton:hover {"
+           "image: url(:/images_folder/btnReconnect_hover.png);"
+           "}"
+           "QToolButton:pressed {"
+           "image: url(:/images_folder/btnReconnect_pressed.png);"
+           "}";
 }
