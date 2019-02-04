@@ -14,22 +14,8 @@ Widget::Widget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    /// Styles settings
+    // Styles settings
     applyStyles();
-
-    playListModel = new QStandardItemModel(this);
-    ui->playlist->setModel(playListModel);
-
-    playListModel->setHorizontalHeaderLabels(QStringList() << tr("Audio") << tr("File path"));
-
-    ui->playlist->hideColumn(1);
-    ui->playlist->verticalHeader()->setVisible(false);
-    ui->playlist->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->playlist->setSelectionMode(QAbstractItemView::SingleSelection);
-    ui->playlist->resizeColumnsToContents();
-    ui->playlist->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
-    ui->playlist->horizontalHeader()->setStretchLastSection(true);
 
     // Audio player itself
     m_player = new MediaPlayer(this);
@@ -41,27 +27,42 @@ Widget::Widget(QWidget *parent) :
     onPause = false;
     running = false;
 
-    connect(ui->playlist, &QTableView::clicked, [this] (const QModelIndex &index) {
-        selectedAudioIndex = index.row();
-    });
-
-    // Double-click on playlist event stop current audio and play selected (even if the same selected)
-    connect(ui->playlist, &QTableView::doubleClicked, [this] (const QModelIndex &index) {
-        selectedAudioIndex = index.row();
-        Widget::on_btnStop_clicked();
-        Widget::on_btnPlay_clicked();
-    });
-
     trackList = new QStringList();
+
+    delay = 25;
 
     // Timer allow us to update visualization
     timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(drawSpectrum()));
-    timer->start(25);
+    timer->start(delay);
 
     m_transmitter = new Transmitter(this);
 
-    /// Connect minimize/maximize/close buttons
+    connectAll();
+}
+
+Widget::~Widget()
+{
+    delete ui;
+    delete playListModel;
+    delete m_player;
+    //delete timer;
+}
+
+void Widget::connectAll(){
+
+    connect(ui->playlist, &QTableView::clicked, [this] (const QModelIndex &index) {
+        selectedAudioIndex = index.row();
+    });
+
+    // Double-click on playlist event stop current audio and play selected
+    connect(ui->playlist, &QTableView::doubleClicked, [this] (const QModelIndex &index) {
+        selectedAudioIndex = index.row();
+        Widget::ui->btnStop->click();
+        Widget::ui->btnPlay->click();
+    });
+
+    // Connect minimize/maximize/close buttons
     connect(ui->btn_minimize, &QToolButton::clicked, this, &QWidget::showMinimized);
     connect(ui->btn_maximize, &QToolButton::clicked, [this](){
         if (this->isMaximized()) {
@@ -74,18 +75,78 @@ Widget::Widget(QWidget *parent) :
     });
     connect(ui->btn_close, &QToolButton::clicked, this, &QWidget::close);
 
-}
+    // Play
+    connect(ui->btnPlay, &QToolButton::clicked, [this](){
+        qDebug() << "button start";
 
-Widget::~Widget()
-{
-    delete ui;
-    delete playListModel;
-    delete m_player;
-    delete timer;
+        if (trackList->isEmpty()) return;
+
+        if (running && currentAudioIndex==selectedAudioIndex)
+            return;
+
+        if (onPause && currentAudioIndex==selectedAudioIndex) {
+            onPause = false;
+            m_player->resume();
+        } else {
+            m_player->play(trackList->at(selectedAudioIndex), ui->volController->value());
+
+            currentAudioIndex = selectedAudioIndex;
+
+            ui->label_Audio->setText(getAudioFileName(trackList->at(selectedAudioIndex)));
+        }
+
+        running = true;
+    });
+
+    // Stop
+    connect(ui->btnStop, &QToolButton::clicked, [this](){
+        onPause = false;
+        running = false;
+
+        toZeroValues();
+
+        m_player->stop();
+    });
+
+    // Pause
+    connect(ui->btnPause, &QToolButton::clicked, [this](){
+        onPause = true;
+        running = false;
+
+        toZeroValues();
+
+        m_player->pause();
+    });
+
+    // Previous
+    connect(ui->btnPrevious, &QToolButton::clicked, [this](){
+        if(selectedAudioIndex!=0){
+            selectedAudioIndex--;
+            Widget::ui->btnStop->click();
+            Widget::ui->btnPlay->click();
+        }
+    });
+
+    // Next
+    connect(ui->btnNext, &QToolButton::clicked, [this](){
+        Widget::ui->btnStop->click();
+        if(selectedAudioIndex!=trackList->length() - 1){
+            selectedAudioIndex++;
+        } else {
+            selectedAudioIndex = 0;
+        }
+        Widget::ui->btnPlay->click();
+    });
+
+    // Reconnect
+    connect(ui->btnReconnect, &QToolButton::clicked, [this](){
+        m_transmitter = new Transmitter(this);
+    });
+
 }
 
 /*void Widget::drawSpectrum(){
-
+    //delay 12
     if(!running) return;
 
     float fft[2048];
@@ -208,10 +269,7 @@ void Widget::drawSpectrum(){
     float level = m_player->GetLevel();
     if (level < 0) level*=-1;
 
-
     float vmax = (v1 > v2) ? ((v1 > v3) ? v1 : v3) : ((v2 > v3) ? v2 : v3);
-
-
 
     if (vmax == 0) vmax = 1;
 
@@ -265,9 +323,9 @@ void Widget::drawSpectrum(){
                            "QSlider::handle:horizontal{background-color:rgb(0, 0, 255, 255);}");
 
     // Debug
-    qDebug() << level << " " << r << " " << g << " " << b;
+    qDebug() << level << " " << r << " " << g << " " << b << " " << delay;
 
-    if(m_transmitter->isConnected()) m_transmitter->writeRGB(int(r), int(g), int(b));
+    if(m_transmitter->isConnected()) m_transmitter->writeRGB(int(r), int(g), int(b), char(delay));
 
     // drawing
     ui->slider_0-> setValue(int(average[0] *1400)/1);
@@ -307,11 +365,26 @@ void Widget::drawSpectrum(){
     ui->timeController->setValue(int((( float(m_player->GetPosOfStream()) / m_player->GetTimeOfStream()) *1000)));
 
     if (m_player->GetPosOfStream() >= m_player->GetTimeOfStream())
-        on_btnNext_clicked();
+        ui->btnNext->click();
 }
 
 void Widget::applyStyles()
 {
+    // Playlist setting
+    playListModel = new QStandardItemModel(this);
+    ui->playlist->setModel(playListModel);
+
+    playListModel->setHorizontalHeaderLabels(QStringList() << tr("Audio") << tr("File path"));
+
+    ui->playlist->hideColumn(1);
+    ui->playlist->verticalHeader()->setVisible(false);
+    ui->playlist->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->playlist->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->playlist->resizeColumnsToContents();
+    ui->playlist->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    ui->playlist->horizontalHeader()->setStretchLastSection(true);
+
     // UI settings
     this->setWindowFlags(Qt::FramelessWindowHint); //Отключение оформления окна
     this->setAttribute(Qt::WA_TranslucentBackground); //Фон главного виджета - прозрачный
@@ -507,69 +580,6 @@ QString Widget::getAudioFileName(QString filename){
     return filename.mid(filename.lastIndexOf('/') + 1, filename.lastIndexOf('.') - filename.lastIndexOf('/') - 1);
 }
 
-void Widget::on_btnPrevious_clicked()
-{
-    if(selectedAudioIndex!=0){
-        selectedAudioIndex--;
-        Widget::on_btnStop_clicked();
-        Widget::on_btnPlay_clicked();
-    }
-}
-
-void Widget::on_btnStop_clicked()
-{
-    onPause = false;
-    running = false;
-
-    toZeroValues();
-
-    m_player->stop();
-}
-
-void Widget::on_btnPlay_clicked()
-{
-    qDebug() << "button start";
-    if (trackList->isEmpty()) return;
-
-    if (running && currentAudioIndex==selectedAudioIndex)
-        return;
-
-    if (onPause && currentAudioIndex==selectedAudioIndex) {
-        onPause = false;
-        m_player->resume();
-    } else {
-        m_player->play(trackList->at(selectedAudioIndex), ui->volController->value());
-
-        currentAudioIndex = selectedAudioIndex;
-
-        ui->label_Audio->setText(getAudioFileName(trackList->at(selectedAudioIndex)));
-    }
-
-    // here we didn't catch an exception
-    running = true;
-}
-
-void Widget::on_btnPause_clicked()
-{
-    onPause = true;
-    running = false;
-
-    toZeroValues();
-
-    m_player->pause();
-}
-
-void Widget::on_btnNext_clicked()
-{
-    Widget::on_btnStop_clicked();
-    if(selectedAudioIndex!=trackList->length() - 1){
-        selectedAudioIndex++;
-    } else {
-        selectedAudioIndex = 0;
-    }
-    Widget::on_btnPlay_clicked();
-}
-
 void Widget::on_volController_valueChanged(int value)
 {
     ui->label_Vol->setText(QString::number(value));
@@ -623,9 +633,4 @@ void Widget::toZeroValues()
     ui->slider_29->setValue(0);
     ui->slider_30->setValue(0);
     ui->slider_31->setValue(0);
-}
-
-void Widget::on_btnReconnect_clicked()
-{
-    m_transmitter = new Transmitter(this);
 }

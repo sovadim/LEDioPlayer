@@ -44,15 +44,6 @@ signals:
     void previousPositionChanged(QPoint previousPosition);
 
 private slots:
-    void on_btnPrevious_clicked();
-
-    void on_btnStop_clicked();
-
-    void on_btnPlay_clicked();
-
-    void on_btnPause_clicked();
-
-    void on_btnNext_clicked();
 
     void on_volController_valueChanged(int value);
 
@@ -60,7 +51,11 @@ private slots:
 
     void on_btnAdd_clicked();
 
-    void on_btnReconnect_clicked();
+    void applyStyles();
+
+    void toZeroValues();
+
+    void connectAll();
 
 protected:
     void mousePressEvent(QMouseEvent *event);
@@ -89,12 +84,10 @@ private:
 
     QString getAudioFileName(QString filename);
 
-    void applyStyles();
-
-    void toZeroValues();
-
     // Arduino control
     Transmitter *m_transmitter;
+
+    byte delay;
 };
 
 #endif // WIDGET_H

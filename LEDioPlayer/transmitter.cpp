@@ -47,17 +47,18 @@ void Transmitter::connect()
 
 }
 
-void Transmitter::writeRGB(int r, int g, int b)
+void Transmitter::writeRGB(int r, int g, int b, char delay)
 {
     QByteArray sentData;
-    sentData.resize(4);
+    sentData.resize(5);
 
     sentData[0] = -1;
     sentData[1] = char(r);
     sentData[2] = char(g);
     sentData[3] = char(b);
+    sentData[4] = delay;
 
     m_pSerialPort->write(sentData);
 
-    //qDebug() << "write: " + QString::number(r) + " " + QString::number(g) + " " + QString::number(b);
+    //qDebug() << "write: " + QString::number(r) + " " + QString::number(g) + " " + QString::number(b) + " " + QString::number(delay);
 }
