@@ -20,6 +20,8 @@ static float minLevel = 0.1f;
 
 static bool mode = false; // second one as default
 
+static int ledAmount = 250;
+
 Settings::Settings(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Settings)
@@ -69,6 +71,8 @@ void Settings::setDefaults()
 
     ui->slider_minLevel->setValue(minLevel * 100);
     ui->label_minLevel->setText(QString::number(minLevel));
+
+    ui->label_amount->setText(QString::number(ledAmount));
 
     updateSliders();
 }
@@ -230,4 +234,10 @@ void Settings::on_slider_minLevel_valueChanged(int value)
 void Settings::on_slider_amount_valueChanged(int value)
 {
     ui->label_amount->setText(QString::number(value));
+    ledAmount = value;
+}
+
+int Settings::get_led_amount()
+{
+    return ledAmount;
 }

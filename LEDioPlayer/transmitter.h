@@ -13,7 +13,7 @@ public:
     bool isConnected() const;
 
     void connect();
-    void writeRGB(int r, int g, int b, char delay);
+    void writeRGB(int r, int g, int b, char delay, int led_amount);
 
 private:
 

@@ -31,6 +31,8 @@ public:
 
     static bool get_mode();
 
+    static int get_led_amount();
+
 private slots:
     void setDefaults();
 

@@ -43,7 +43,7 @@
         <item>
          <widget class="QSlider" name="slider_amount">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="maximum">
            <number>500</number>

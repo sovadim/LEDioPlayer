@@ -245,7 +245,7 @@ void Widget::playMode1(float *fft){
     if (g > 255) g = 255;
     if (b > 255) b = 255;
 
-    if(m_transmitter->isConnected()) m_transmitter->writeRGB(int(r), int(g), int(b), 12);
+    if(m_transmitter->isConnected()) m_transmitter->writeRGB(int(r), int(g), int(b), 12, Settings::get_led_amount());
 }
 
 void Widget::playMode2(float *fft){
@@ -300,9 +300,9 @@ void Widget::playMode2(float *fft){
     }
 
     // Debug
-    qDebug() << level << " " << r << " " << g << " " << b << " " << delay << " " << Settings::get_mode();
+    qDebug() << level << " " << r << " " << g << " " << b << " " << delay << " " << Settings::get_mode() << " " << Settings::get_led_amount();
 
-    if(m_transmitter->isConnected()) m_transmitter->writeRGB(int(r), int(g), int(b), char(delay));
+    if(m_transmitter->isConnected()) m_transmitter->writeRGB(int(r), int(g), int(b), char(delay), Settings::get_led_amount());
 }
 
 void Widget::applyStyles()
