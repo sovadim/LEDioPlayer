@@ -32,7 +32,7 @@ Widget::Widget(QWidget *parent) :
 
     trackList = new QStringList();
 
-    delay = 25;
+    delay = 21;
 
     // Timer allow us to update visualization
     timer = new QTimer();

@@ -5,25 +5,22 @@
 // more then 500 LEDs.
 // Then, change maximum value of
 // LEDs amount slider in the app.
-#define MAX_LEDS 500
 
-// Number of LEDS to update every millisecond 
-#define updateLEDS 1
+//#define MAX_LEDS 500
+#define updateLEDS 1 // Number of LEDS to update every millisecond 
 
-// []
-CRGB leds[MAX_LEDS];
+#define NUM_LEDS 200 // Number of LEDS in a strip with default value
 
-// Number of LEDS in a strip with default value
-int NUM_LEDS = 250;
+CRGB leds[/*MAX_LEDS*/ NUM_LEDS];
 
 // Number of control pin on Arduino
-#define DATA_PIN 2
+#define DATA_PIN 13
 
 void setup() { 
     Serial.begin(9600);
-    FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, MAX_LEDS);
+    FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, /*MAX_LEDS*/ NUM_LEDS);
 
-    for(int i = 0; i < MAX_LEDS ; i++) {
+    for(int i = 0; i < /*MAX_LEDS*/ NUM_LEDS ; i++) {
       leds[i] = CRGB(0,0,0);
     }
     FastLED.show();
@@ -40,9 +37,9 @@ void loop() {
   }
 
   // 0
-  for(int i = MAX_LEDS - 1; i >= NUM_LEDS; i--) {
+  /*for(int i = MAX_LEDS - 1; i >= NUM_LEDS; i--) {
     leds[i] = CRGB(0,0,0);
-  }
+  }*/
 
   // Reading info from Serial port
   //[r, g, b, delay, number of LEDs]
@@ -52,7 +49,7 @@ void loop() {
 
   int del = Serial.read();
 
-  NUM_LEDS = Serial.read();
+  //NUM_LEDS = Serial.read();
 
   // Error-check
   if(r > 255) r = 255;
@@ -63,11 +60,11 @@ void loop() {
   if(g < 0) g = 0;
   if(b < 0) b = 0;
 
-  if (del < 0 || del > 100)
-    del = 25;
+  //if (del < 0 || del > 100)
+  //  del = 25;
 
-  if (NUM_LEDS < 0 || NUM_LEDS > MAX_LEDS)
-    NUM_LEDS = 250;
+  //if (NUM_LEDS < 0 || NUM_LEDS > MAX_LEDS)
+  //  NUM_LEDS = 250;
 
   // Set the left most updateLEDs with the new color
   for(int i = 0; i < updateLEDS; i++) {
@@ -75,5 +72,6 @@ void loop() {
   }
   FastLED.show();
 
-  delay(del);
+  //delay(del);
+  delay(20);
 }

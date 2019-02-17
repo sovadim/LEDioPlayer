@@ -50,14 +50,14 @@ void Transmitter::connect()
 void Transmitter::writeRGB(int r, int g, int b, char delay, int led_amount)
 {
     QByteArray sentData;
-    sentData.resize(6);
+    sentData.resize(5);
 
     sentData[0] = -1;
     sentData[1] = char(r);
     sentData[2] = char(g);
     sentData[3] = char(b);
-    sentData[4] = delay;
-    sentData[5] = char(led_amount);
+    //sentData[4] = delay;
+    sentData[4] = char(led_amount);
 
     m_pSerialPort->write(sentData);
 
